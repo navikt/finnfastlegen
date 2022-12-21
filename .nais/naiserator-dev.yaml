@@ -1,0 +1,66 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: finnfastlegen
+  namespace: teamsykefravr
+  labels:
+    team: teamsykefravr
+spec:
+  image: {{ image }}
+  replicas:
+    min: 1
+    max: 1
+    cpuThresholdPercentage: 90
+  port: 8080
+  liveness:
+    path: /api/isAlive
+    initialDelay: 10
+    timeout: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: /api/isReady
+    initialDelay: 30
+    periodSeconds: 5
+    timeout: 5
+  env:
+    - name: NODE_ENV
+      value: production
+    - name: FINNFASTLEGEN_URL
+      value: http://finnfastlegen
+    - name: AUTH_REDIRECT_URI
+      value: "https://finnfastlegen.dev.intern.nav.no/oauth2/callback"
+    - name: INTERNARBEIDSFLATEDECORATOR_HOST
+      value: "internarbeidsflatedecorator-q0.dev.intern.nav.no"
+    - name: FASTLEGEREST_AAD_APP_CLIENT_ID
+      value: "dev-gcp.teamsykefravr.fastlegerest"
+    - name: SYFOPERSON_AAD_APP_CLIENT_ID
+      value: "dev-gcp.teamsykefravr.syfoperson"
+    - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
+      value: "dev-fss.teamsykefravr.syfo-tilgangskontroll"
+    - name: MODIACONTEXTHOLDER_HOST
+      value: "https://modiacontextholder-q0.dev.intern.nav.no"
+    - name: FASTLEGEREST_HOST
+      value: "https://fastlegerest.dev.intern.nav.no"
+    - name: SYFOPERSON_HOST
+      value: "https://syfoperson.dev.intern.nav.no"
+    - name: SYFOTILGANGKONTROLL_HOST
+      value: "https://syfo-tilgangskontroll.dev.intern.nav.no"
+  resources:
+    limits:
+      cpu: 500m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  azure:
+    application:
+      enabled: true
+      tenant: trygdeetaten.no
+      replyURLs:
+        - "https://finnfastlegen.dev.intern.nav.no/oauth2/callback"
+      claims:
+        extra:
+          - "NAVident"
+  ingresses:
+    - "https://finnfastlegen.dev.intern.nav.no"

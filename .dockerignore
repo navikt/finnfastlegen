@@ -1,0 +1,6 @@
+.git/
+.eslintignore
+.gitignore
+.nais.yaml
+Dockerfile
+.next/cache
