@@ -31,7 +31,7 @@ spec:
     - name: AUTH_REDIRECT_URI
       value: "https://finnfastlegen.dev.intern.nav.no/oauth2/callback"
     - name: INTERNARBEIDSFLATEDECORATOR_HOST
-      value: "internarbeidsflatedecorator-q0.dev.intern.nav.no"
+      value: "internarbeidsflatedecorator-q0.dev-fss-pub.nais.io"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
       value: "dev-gcp.teamsykefravr.fastlegerest"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
