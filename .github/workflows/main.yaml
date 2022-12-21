@@ -28,9 +28,6 @@ jobs:
       - name: Install deps
         run: |
           npm install
-      - name: Prettier check 💅
-        run: |
-          npx prettier --check .
       - name: Build
         run: |
           npm run build
