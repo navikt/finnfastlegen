@@ -1,8 +1,8 @@
 import { useFastlegeQuery } from "../data/fastlege/fastlegeQueryHooks";
 import { ApiErrorException, getErrorMessage } from "../api/errors";
-import Feilmelding from "../components/Feilmelding";
-import FastlegeInfo from "../components/FastlegeInfo";
-import AppSpinner from "../components/AppSpinner";
+import Feilmelding from "./Feilmelding";
+import FastlegeInfo from "./FastlegeInfo";
+import AppSpinner from "./AppSpinner";
 import React from "react";
 
 export const texts = {
@@ -47,8 +47,9 @@ export const Fastlege = ({ fnr }: FastlegeProps) => {
   const ikkeTilgang = error instanceof ApiErrorException && error.code === 403;
   const ikkeFunnet = data?.length === 0;
 
+  /* TODO: sett riktig verdi på appspinner*/
   return (
-    <AppSpinner laster={isLoading}>
+    <AppSpinner laster={false}>
       {(() => {
         if (ikkeTilgang) {
           return (

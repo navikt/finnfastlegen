@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { erGyldigFodselsnummer } from "../utils/fnrValideringUtil";
-import { Hovedknapp } from "nav-frontend-knapper";
-import { Input } from "nav-frontend-skjema";
+import {Search} from "@navikt/ds-react";
 
 interface SokeboksProps {
   handleSubmitGyldigFnr(fnr: string): void;
@@ -21,26 +20,28 @@ const Sokeboks = ({ handleSubmitGyldigFnr }: SokeboksProps) => {
     }
   };
 
-  const sokefeltEndret = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+  const sokefeltEndret = (value: string) => {
+    setValue(value);
     setValideringsfeil(false);
   };
 
   return (
     <div className="sokeboks blokk">
-      <form onSubmit={onSubmit}>
-        <Input
-          feil={
+      <form onSubmit={onSubmit} role={"search"}>
+        <Search
+            label={"Søk opp fastlegen"}
+            hideLabel={true}
+            variant={"primary"}
+            error={
             valideringsfeil
               ? "Du må skrive inn et gyldig fødselsnummer (11 siffer)"
               : undefined
-          }
-          type="search"
-          onChange={sokefeltEndret}
-          placeholder="Søk"
-          value={value}
+            }
+            onChange={sokefeltEndret}
+            placeholder="Søk"
+            value={value}
         />
-        <Hovedknapp>Søk</Hovedknapp>
+        {/*<Hovedknapp>Søk</Hovedknapp>*/}
       </form>
     </div>
   );

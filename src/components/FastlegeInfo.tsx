@@ -1,8 +1,4 @@
-import React from "react";
-import { Column, Row } from "nav-frontend-grid";
-import Panel from "nav-frontend-paneler";
-import { EtikettFokus } from "nav-frontend-etiketter";
-import { Element, Systemtittel, Undertekst } from "nav-frontend-typografi";
+import React, {ReactNode} from "react";
 import PersonIkon from "../svg/PersonIkon";
 import LegeIkon from "../svg/LegeIkon";
 import { tilLangtDatoFormat } from "../utils/datoUtils";
@@ -19,6 +15,9 @@ import {
 } from "../data/fastlege/FastlegeInternal";
 import { useDiskresjonskodeQuery } from "../data/diskresjonskode/diskresjonskodeQueryHooks";
 import { useEgenansattQuery } from "../data/egenansatt/egenansattQueryHooks";
+import Column from "./grid/Column";
+import Row from "./grid/Row";
+import {Detail, Heading, Label, Panel, Tag} from "@navikt/ds-react";
 
 const VERDI_IKKE_FUNNET = "Ikke funnet";
 
@@ -79,26 +78,26 @@ const FastlegeInfo = ({ fastlegeList }: FastlegeInfoProps) => {
           <Column>
             <Row className="no-gutter">
               <Column>
-                <Systemtittel>
+                <Heading level={"2"} size={"medium"}>
                   {pasient && hentTekstPasientNavn(pasient)}
-                </Systemtittel>
-                <Undertekst>{pasient?.fnr}</Undertekst>
+                </Heading>
+                <Detail>{pasient?.fnr}</Detail>
               </Column>
             </Row>
             <Row className="no-gutter fastlegeInfo__etiketter">
               {isEgenansatt && (
                 <div>
-                  <EtikettFokus>Egen ansatt</EtikettFokus>
+                  <Tag variant="warning">Egen ansatt</Tag>
                 </div>
               )}
               {diskresjonskode === "6" && (
                 <div>
-                  <EtikettFokus>Kode 6</EtikettFokus>
+                  <Tag variant="warning">Kode 6</Tag>
                 </div>
               )}
               {diskresjonskode === "7" && (
                 <div>
-                  <EtikettFokus>Kode 7</EtikettFokus>
+                  <Tag variant="warning">Kode 7</Tag>
                 </div>
               )}
             </Row>
@@ -114,40 +113,41 @@ const FastlegeInfo = ({ fastlegeList }: FastlegeInfoProps) => {
           {fastlege && (
             <Row className="no-gutter">
               <Column>
-                <Systemtittel>{hentTekstFastlegeNavn(fastlege)}</Systemtittel>
-                <Undertekst>{`Fastlege: ${tilLangtDatoFormat(
+                <Heading level={"2"} size={"medium"}>{hentTekstFastlegeNavn(fastlege)}</Heading>
+                <Detail>{`Fastlege: ${tilLangtDatoFormat(
                   fastlege.pasientforhold.fom
-                )} - nå`}</Undertekst>
+                )} - nå`}
+                </Detail>
               </Column>
             </Row>
           )}
           {fastlegekontor && [
             <Row key={1} className="no-gutter">
               <Column className="col-xs-12 col-sm-6">
-                <Element>Legekontor</Element>
-                <Undertekst>{fastlegekontor.navn}</Undertekst>
+                <Label>Legekontor</Label>
+                <Detail as={"p"}>{fastlegekontor.navn}</Detail>
               </Column>
               <Column className="col-xs-12 col-sm-6">
-                <Element>Besøksadresse</Element>
-                <Undertekst>
+                <Label>Besøksadresse</Label>
+                <Detail>
                   {fastlegekontor.besoeksadresse &&
                     hentTekstFastlegeBesoeksadresse(
                       fastlegekontor.besoeksadresse
                     )}
-                </Undertekst>
+                </Detail>
               </Column>
             </Row>,
             <Row key={2} className="no-gutter">
               <Column className="col-xs-12 col-sm-6">
-                <Element>Telefon</Element>
-                <Undertekst>{fastlegekontor.telefon}</Undertekst>
+                <Label>Telefon</Label>
+                <Detail>{fastlegekontor.telefon}</Detail>
               </Column>
               <Column className="col-xs-12 col-sm-6">
-                <Element>Postadresse</Element>
-                <Undertekst>
+                <Label>Postadresse</Label>
+                <Detail>
                   {fastlegekontor.postadresse &&
                     hentTekstFastlegePostadresse(fastlegekontor.postadresse)}
-                </Undertekst>
+                </Detail>
               </Column>
             </Row>,
           ]}
@@ -155,16 +155,16 @@ const FastlegeInfo = ({ fastlegeList }: FastlegeInfoProps) => {
             return (
               <Row key={index} className="no-gutter">
                 <Column>
-                  <Systemtittel>
+                  <Heading level={"2"} size={"medium"}>
                     {hentTekstFastlegeNavn(legevikar)}
-                  </Systemtittel>
-                  <Undertekst>{`Vikarperiode: ${tilLangtDatoFormat(
+                  </Heading>
+                  <Detail>{`Vikarperiode: ${tilLangtDatoFormat(
                     legevikar.gyldighet.fom
                   )} - ${tilLangtDatoFormat(
                     legevikar.gyldighet.tom
-                  )}`}</Undertekst>
+                  )}`}</Detail>
                   {legevikar.stillingsprosent && (
-                    <Undertekst>{`Stillingsprosent: ${legevikar.stillingsprosent}%`}</Undertekst>
+                    <Detail>{`Stillingsprosent: ${legevikar.stillingsprosent}%`}</Detail>
                   )}
                 </Column>
               </Row>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Normaltekst, Undertittel } from "nav-frontend-typografi";
+import {Detail, ErrorMessage} from "@navikt/ds-react";
 
 interface FeilmeldingProps {
   tittel: string;
@@ -9,8 +9,8 @@ interface FeilmeldingProps {
 const Feilmelding = ({ tittel, melding }: FeilmeldingProps) => {
   return (
     <div className="feilmelding panel">
-      <Undertittel className="hode hode--feil">{tittel}</Undertittel>
-      <Normaltekst>{melding}</Normaltekst>
+      <Detail className="hode hode--feil">{tittel}</Detail>
+      <ErrorMessage>{melding}</ErrorMessage>
     </div>
   );
 };

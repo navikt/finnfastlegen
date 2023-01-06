@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Sidetittel, Undertekst } from "nav-frontend-typografi";
 import Sokeboks from "./Sokeboks";
 import { Fastlege } from "./Fastlege";
 import { fastlegeQueryKeys } from "../data/fastlege/fastlegeQueryHooks";
 import { useQueryClient } from "@tanstack/react-query";
+import {Detail, Heading} from "@navikt/ds-react";
 
 export const texts = {
   title: "Finn fastlegen",
@@ -16,9 +16,9 @@ const FastlegeSide = () => {
 
   return (
     <div className="fastlege">
-      <Sidetittel>{texts.title}</Sidetittel>
+      <Heading level={"1"} size={"xlarge"} >{texts.title}</Heading>
       <div className="fastlege__sokeboks">
-        <Undertekst>{texts.subtitle}</Undertekst>
+        <Detail>{texts.subtitle}</Detail>
         <Sokeboks
           handleSubmitGyldigFnr={(fnr) => {
             setFodselsnummer(fnr);

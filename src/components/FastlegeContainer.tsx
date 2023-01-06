@@ -1,7 +1,7 @@
 import React from "react";
-import AppSpinner from "../components/AppSpinner";
-import FastlegeSide from "../components/FastlegeSide";
-import Feilmelding from "../components/Feilmelding";
+import AppSpinner from "./AppSpinner";
+import FastlegeSide from "./FastlegeSide";
+import Feilmelding from "./Feilmelding";
 import Side from "./Side";
 import { useTilgangQuery } from "../data/tilgang/tilgangQueryHooks";
 import { ApiErrorException } from "../api/errors";
@@ -18,9 +18,10 @@ export const texts = {
 const FastlegeContainer = () => {
   const tilgang = useTilgangQuery();
 
+  // TODO: oppdater laster
   return (
     <Side>
-      <AppSpinner laster={tilgang.isLoading}>
+      <AppSpinner laster={false}>
         {(() => {
           if (
             tilgang.error instanceof ApiErrorException &&
