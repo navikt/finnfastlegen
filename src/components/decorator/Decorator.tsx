@@ -1,11 +1,12 @@
 import React, { useCallback } from "react";
-import NAVSPA from "@navikt/navspa";
+import {AsyncNavspa} from "@navikt/navspa";
 import { DecoratorProps } from "./decoratorProps";
 import decoratorConfig from "./decoratorconfig";
 
-const InternflateDecorator = NAVSPA.importer<DecoratorProps>(
-  "internarbeidsflatefs"
-);
+const InternflateDecorator = AsyncNavspa.importer<DecoratorProps>({
+    appName: "internarbeidsflatefs",
+    appBaseUrl: "https://navikt.github.io/internarbeidsflatedecorator/v2.1"
+});
 
 const Decorator = () => {
   const handlePersonsokSubmit = () => {
