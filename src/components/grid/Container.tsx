@@ -3,7 +3,11 @@ import styled from "styled-components";
 import {cls} from "../../utils/classNameUtil";
 
 const ContainerWrapper = styled.div`
-  box-sizing: border-box; 
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 8px;
+  padding-right: 8px;
 `
 
 interface ContainerProps {

@@ -1,6 +1,7 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import Document, {Html, Head, Main, NextScript, DocumentContext, DocumentInitialProps} from 'next/document'
+import {ServerStyleSheet} from "styled-components";
 
-export default function Document() {
+export default function MyDocument() {
     let url;
     if (process.env.NODE_ENV !== 'production') {
         url = "https://navikt.github.io/internarbeidsflatedecorator"
@@ -8,6 +9,7 @@ export default function Document() {
         url = "/api/internarbeidsflatedecorator"
 
     }
+
   return (
     <Html lang="en">
       <Head>
@@ -23,4 +25,30 @@ export default function Document() {
       </body>
     </Html>
   )
+}
+
+MyDocument.getInitialProps = async(ctx: DocumentContext): Promise<DocumentInitialProps> => {
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
+
+    try {
+        ctx.renderPage = () =>
+            originalRenderPage({
+                enhanceApp: (App) => (props) =>
+                    sheet.collectStyles(<App {...props} />),
+            });
+
+        const initialProps = await Document.getInitialProps(ctx);
+        return {
+            ...initialProps,
+            styles: (
+                <>
+                    {initialProps.styles}
+                    {sheet.getStyleElement()}
+                </>
+            ),
+        };
+    } finally {
+        sheet.seal();
+    }
 }

@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+import React from "react";
 import PersonIkon from "../svg/PersonIkon";
 import LegeIkon from "../svg/LegeIkon";
 import { tilLangtDatoFormat } from "../utils/datoUtils";
