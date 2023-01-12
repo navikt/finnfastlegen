@@ -33,14 +33,14 @@ const FastlegeContainer = () => {
                 melding={texts.noAccessMessage}
               />
             );
-          } else if (tilgang.isError) {
+          } /*else if (tilgang.isError) {
             return (
               <Feilmelding
                 tittel={texts.generalErrorTitle}
                 melding={texts.generalErrorMessage}
               />
             );
-          }
+          }*/
           return <FastlegeSide />;
         })()}
       </AppSpinner>

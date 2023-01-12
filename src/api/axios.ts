@@ -27,18 +27,20 @@ function handleAxiosError(error: AxiosError) {
   if (error.response) {
     switch (error.response.status) {
       case 401: {
-        window.location.href = `/login?redirectTo=${window.location.pathname}`;
+       /* window.location.href = `/login?redirectTo=${window.location.pathname}`;
         throw new ApiErrorException(
           loginRequiredError(error.message),
           error.response.status
-        );
+        );*/
+        console.log("Fikk ikke logga inn :(")
       }
       case 403: {
-        const message = error.message; // TODO: data.message
+        console.log("403")
+        /*const message = error.message; // TODO: data.message
         throw new ApiErrorException(
           accessDeniedError(message),
           error.response.status
-        );
+        );*/
       }
       default:
         throw new ApiErrorException(
